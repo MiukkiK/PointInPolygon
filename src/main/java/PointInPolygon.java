@@ -1,30 +1,18 @@
-import java.util.LinkedList;
 /** 
- * Program to find out where given points are in relation to a polygon given in points.
- * Points are given in files and results are written in a result file.
+ * Class for finding out where given points are in relation to a polygon given in points.
+ * Points are given either in text files and a target result file, or as Polygon and Points that are to be tested.
  * @author Mia Kallio
  */
 public class PointInPolygon {
-	// Define file locations
-	static String POINTSOURCE = "src\\main\\resources\\pisteet.txt";
-	static String POLYSOURCE = "src\\main\\resources\\polygoni.txt";
-	static String RESULTTARGET = "src\\main\\resources\\tulokset.txt";
 
 	public static void main(String[] args) {
-		FileHandler fileHandler = new FileHandler();
-		LinkedList<Point> pointList = fileHandler.readPoints(POINTSOURCE);
-		Polygon polygon = new Polygon (fileHandler.readPoints(POLYSOURCE));
-		LinkedList<String> results = new LinkedList<String>();
-		
-		int i = 0;
-		while (i < pointList.size()) {
-			results.add(polygon.whereIs(pointList.get(i)));
-			i++;
-		}
-		
-		fileHandler.writeResults(pointList, polygon, results, RESULTTARGET);
-		
-		System.out.println("Njet problem, normal Katastrof");
-	}
+		Polygon polygon = new Polygon(Point.getPointsFromString(FileHandler.fileAsString(args[0])));
+		Point[] points = Point.getPointsFromString(FileHandler.fileAsString(args[1]));
 
+		String target = "none";
+		if (args.length > 2) target = args[2];
+
+		String results = polygon.generateResults(points);
+		FileHandler.writeResults(results, target);
+	}
 }

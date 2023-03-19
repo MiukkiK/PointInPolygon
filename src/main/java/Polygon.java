@@ -10,25 +10,35 @@ public class Polygon {
 	public static String ON_BORDER = "on the border";
 		
 	/**
+	 * An array of Points in the Polygon.
+	 */
+	Point[] points;
+	
+	/**
 	 * The LinkedList of Points the Polygon is made out of.
 	 */
-	LinkedList<Point> points;
-	/**
-	 * Creates a Polygon from a LinkedList of Points.
-	 * @param givenPoints the given LinkedList of Points.
-	 */
+	LinkedList<Point> pointList;
 	
-	public Polygon (LinkedList<Point> givenPoints) {			
-		points = givenPoints;		
+	/**
+	 * Creates a Polygon from an array of Points.
+	 * @param givenPoints the given array of Points.
+	 */	
+	public Polygon (Point[] givenPoints) {
+			points = givenPoints;
+			pointList = new LinkedList<Point>();
+			for (Point point : points) {
+				pointList.add(point);
+			}
 	}
+
 	/**
 	 * @return String representation of the Points of this Polygon.
 	 */
 	public String toString() {
 		String result = "";
 		int i = 0;
-		while (i < points.size()) {
-			result = result + points.get(i).toString() + " ";
+		while (i < pointList.size()) {
+			result = result + pointList.get(i).toString() + " ";
 			i++;
 		}
 		return result.strip();
@@ -39,26 +49,27 @@ public class Polygon {
 	 * @return the result in String format.
 	 */
 	public String whereIs(Point p) {
+		// TODO deprecate LinkedList from loop
 		Point a, b, c; // line end points
 		float k, solveX; // solution variables for hard solving the intersect point		
 		int i = 0;
 		int intersects = 0;
-		int size = points.size();
+		int size = pointList.size();
 		
-		a = points.get(0);
-		b = points.get((1)%size);
+		a = pointList.get(0);
+		b = pointList.get((1)%size);
 		// make sure first end point isn't on the solution line to avoid double dipping later
 		while ((a.getY() == p.getY()) && (a.getX() > p.getX())) {
 			// Verbose
 			// System.out.println("endpoint is on the solution line, rotating..");
-			points.addFirst(points.pollLast()); // rotate list 1 step back
-			a = points.get(0);
-			b = points.get((1)%size);
+			pointList.addFirst(pointList.pollLast()); // rotate list 1 step back
+			a = pointList.get(0);
+			b = pointList.get((1)%size);
 		}
 		while(i < size) {
 			
-			a = points.get(i);
-			b = points.get((i+1)%size);
+			a = pointList.get(i);
+			b = pointList.get((i+1)%size);
 			
 			//if line is completely right of point, the calculation is more trivial
 			if ((a.getX() > p.getX()) && (b.getX() > p.getX())) {
@@ -67,7 +78,7 @@ public class Polygon {
 					// System.out.println(b.toString() + " is on the solution line of " + p.toString() + " and was ignored.");
 					c = b;	
 					i++;
-					b = points.get((i+1)%size); // ignore end points on the point solution line
+					b = pointList.get((i+1)%size); // ignore end points on the point solution line
 					 if((b.getY() == c.getY()) && (b.getX() < p.getX())) {
 						// Verbose
 						// System.out.println(c.toString() + "-" + b.toString() + " goes through " + p.toString() + ". The point is on border.");
@@ -133,4 +144,13 @@ public class Polygon {
 			return INSIDE;
 		}
 	}
+	
+	public String generateResults(Point[] points) {
+		String resultString = "Results for polygon:\n" + this.toString() + "\n\n";
+		for (Point point : points) {
+			resultString = resultString + point.toString() + ": " + this.whereIs(point) + "\n";
+		}
+		return resultString;
+	}
+	
 }
