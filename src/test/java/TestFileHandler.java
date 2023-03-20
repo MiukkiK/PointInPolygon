@@ -8,13 +8,10 @@ class TestFileHandler {
 
 	@Test
 	void testfileAsString() {
-		Point pointA = new Point("1,1");
-		Point pointB = new Point("2,3");
-		Point pointC = new Point("4,5");
 		
-		String testPoints = FileHandler.fileAsString("src\\test\\resources\\fileasstringtest.txt");
+		String assertString = "This is the test file contents (1 2 3)";
 
-		assertEquals((pointA + " " + pointB + " " + pointC), testPoints);
+		assertEquals(assertString, FileHandler.fileAsString("src\\test\\resources\\fileasstringtest.txt"));
 	}
 
 	@Test
