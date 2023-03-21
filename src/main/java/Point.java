@@ -4,16 +4,21 @@ import java.util.Scanner;
 /**
  * Simple point object that contains x and y coordinates of a point in 2D space.
  * The coordinates are in Float format.
+ * 
  * @author Mia Kallio
- *
  */
 public class Point {
 	/**
-	 * Coordinates of the Point.
+	 * Coordinate of the Point.
 	 */
 	private float x,y;
 	
-	
+	/**
+	 * Static method for creating an array of Points from a string containing multiple point inputs.
+	 * Input should be in the format of "(a,b) (c,d)\n .. (e,f)"
+	 * @param string Input String of points.
+	 * @return an array of Points.
+	 */
 	public static Point[] getPointsFromString(String string) {
 		var pointList = new LinkedList<Point>();
 				
@@ -37,7 +42,7 @@ public class Point {
 	}
 	
 	/**
-	 * Creates a Point from a String containing the coordinates separated by a comma (,).
+	 * Creates a Point from a String containing the coordinates separated by a comma ("a,b").
 	 * @param xy_Str the String containing the coordinates.
 	 */
 	public Point(String xy_Str) {

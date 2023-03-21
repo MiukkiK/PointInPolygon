@@ -1,9 +1,12 @@
-/**
- * @author Mia Kallio
- */
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for the Polygon class. Tests the constructor method.
+ * Additional tests are in the TestPolygonWithFiles and TestPolygonWithoutFiles classes.
+ * 
+ * @author Mia Kallio
+ */
 class TestPolygon {
 
 	@Test

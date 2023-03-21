@@ -4,15 +4,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 /**
- * Class to handle file actions.
+ * Class for reading and writing Strings to Files.
+ * 
  * @author Mia Kallio
- *
  */
 public class FileHandler {
 	/**
-	 * Reads points from a given file location in String format and returns the results in a linked list.
+	 * Static method for reading the contents of a File into a String.
+	 * File format "src\\folder\\inputfile.txt"
+	 * 
 	 * @param source Location of the File in String format.
-	 * @return a LinkedList of the points in the given file.
+	 * @return File contents as a String if a valid file, otherwise the input string.
 	 * 
 	 */	
 	public static String fileAsString (String input) {
@@ -26,7 +28,14 @@ public class FileHandler {
 			}
 		else return input;
 	}
-	
+/**
+ * Static method for writing results of a test into a File, or if no valid File given, print to console.
+ * File format "src\\folder\\targetfile.txt"
+ * File must exist beforehand. Contents of the file will be overwritten.
+ * 
+ * @param resultString String to be written.
+ * @param target Target File location.
+ */
 	public static void writeResults(String resultString, String target) {
 		if ((target != "") && Files.exists(Paths.get(target)))
 			try {

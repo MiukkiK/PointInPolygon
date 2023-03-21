@@ -1,6 +1,12 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for fringe cases of the Polygon.whereIs() method.
+ * This variation test the method with File inputs and writes.
+ * 
+ * @author Mia Kallio
+ */
 public class TestPolygonWithoutFiles extends AbstractPolygonTest {
 
 	String[] results;

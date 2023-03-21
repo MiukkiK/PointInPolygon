@@ -1,9 +1,11 @@
-/**
- * @author Mia Kallio
- */
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for testing the methods of the Point class.
+ * 
+ * @author Mia Kallio
+ */
 class TestPoint {
 
 	@Test
