@@ -1,6 +1,1 @@
-Results for polygon:
-(0.0,0.0) (0.0,4.0) (2.0,2.0) (4.0,4.0) (4.0,0.0)
-
-(1.0,3.0): on the border
-(1.0,1.0): inside
-(-1.0,0.0): outside
+on the border,inside,outside

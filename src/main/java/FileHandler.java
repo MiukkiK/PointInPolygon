@@ -28,14 +28,14 @@ public class FileHandler {
 			}
 		else return input;
 	}
-/**
- * Static method for writing results of a test into a File, or if no valid File given, print to console.
- * File format "src\\folder\\targetfile.txt"
- * File must exist beforehand. Contents of the file will be overwritten.
- * 
- * @param resultString String to be written.
- * @param target Target File location.
- */
+	/**
+	 * Static method for writing results of a test into a File, or if no valid File given, print to console.
+	 * File format "src\\folder\\targetfile.txt"
+	 * File must exist beforehand. Contents of the file will be overwritten.
+	 * 
+	 * @param resultString String to be written.
+	 * @param target Target File location.
+	 */
 	public static void writeResults(String resultString, String target) {
 		if ((target != "") && Files.exists(Paths.get(target)))
 			try {

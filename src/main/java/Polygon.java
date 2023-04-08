@@ -6,9 +6,9 @@ import java.util.LinkedList;
  */
 public class Polygon {
 	// Strings of results, modify here if you wish to change language for example.
-	public static String INSIDE = "inside";
-	public static String OUTSIDE = "outside";
-	public static String ON_BORDER = "on the border";
+	static String INSIDE = "inside";
+	static String OUTSIDE = "outside";
+	static String ON_BORDER = "on the border";
 		
 	/**
 	 * An array of Points in the Polygon.
@@ -125,7 +125,11 @@ public class Polygon {
 			return INSIDE;
 		}
 	}
-	
+	/**
+	 * Generates whereIs() test results in a String for the given array of Points.
+	 * @param points Array of Points to test
+	 * @return Results in String format
+	 */
 	public String generateResults(Point[] points) {
 		String resultString = "Results for polygon:\n" + this.toString() + "\n\n";
 		for (Point point : points) {

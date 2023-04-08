@@ -9,53 +9,74 @@ import org.junit.jupiter.api.Test;
  */
 public abstract class AbstractPolygonTest {
 	
-	public Polygon getPolygon(String source) {
-		return new Polygon(Point.getPointsFromString(FileHandler.fileAsString(source)));
+	Polygon getPolygon(String source) {
+		String pointString = "not initialized";
+		switch (source) {
+		case "triangle": 
+			pointString = "(0,0) (0,4) (4,0)";
+			break;
+		case "doublejoint": 
+			pointString = "(0,0) (2,0) (4,0) (0,4) (0,2)";
+			break;
+		case "mshape": 
+			pointString = "(0,0) (0,4) (2,2) (4,4) (4,0)";
+			break;
+		}
+		return new Polygon(Point.getPointsFromString(pointString));
 	}
 	
-	public Point[] getPoints(String source) {
-		return Point.getPointsFromString(FileHandler.fileAsString(source));
+	Point[] getPoints(String source) {
+		String pointString = "not initialized";
+		switch (source) {
+		case "triangle": 
+			pointString = "(4,0) (1,1) (2,-2)";
+			break;
+		case "doublejoint": 
+			pointString = "(3,0) (0,1) (-2,0)";
+			break;
+		case "mshape": 
+			pointString = "(3,3) (2,1) (-1,4)";
+			break;
+		}
+		return Point.getPointsFromString(pointString);
 	}
 
-	public String getResults(Polygon polygon, Point[] points) {
-		return polygon.generateResults(points);
+	String[] getResults(String source) {
+		String pointString = "not initialized";
+		switch (source) {
+			case "triangle": 
+				pointString = Polygon.ON_BORDER + "," + Polygon.INSIDE + "," + Polygon.OUTSIDE;
+				break;
+			case "doublejoint": 
+				pointString = Polygon.ON_BORDER + "," + Polygon.ON_BORDER + "," + Polygon.OUTSIDE;
+				break;
+			case "mshape": 
+				pointString = Polygon.ON_BORDER + "," + Polygon.INSIDE + "," + Polygon.OUTSIDE;
+				break;
+		}
+		String[] results = pointString.split(",");
+		return results;
 	}
 	
-	String makeAssertString(Polygon polygon, Point[] points, String[] results) {
-		String assertString = "Results for polygon:\n" + polygon + "\n\n";
-		for (int i=0; i < points.length; i++) {
-			assertString = assertString + points[i] + ": " + results[i] + "\n";
+	void runTest(Polygon polygon, Point[] points, String[] asserts) {
+		for (int i=0; i<asserts.length; i++) {
+			System.out.println("Testing with polygon " + polygon.toString() + ", assertion " + asserts[i]);
+			assertEquals(asserts[i], polygon.whereIs(points[i]), "Problem with assertion index " + i);
 		}
-		return assertString;
-	}		
+	}
 	
 	@Test
 	void testWhereIsTriangle() {
-		Polygon polygon = getPolygon("(0,0) (0,4) (4,0)");
-		Point[] points = getPoints("(4,0) (1,1) (2,-2)");
-		String[] results = new String[] {Polygon.ON_BORDER, Polygon.INSIDE, Polygon.OUTSIDE};
-		String assertString = makeAssertString(polygon, points, results); 
-		
-		assertEquals(assertString, getResults(polygon, points));
+		runTest(getPolygon("triangle"), getPoints("triangle"), getResults("triangle"));
 	}
 	
 	@Test
 	void testWhereIsDoubleJointedTriangle() {
-		Polygon polygon = getPolygon("(0,0) (2,0) (4,0) (0,4) (0,2)");
-		Point[] points = getPoints("(3,0) (0,1) (-2,0)");
-		String[] results = new String[] {Polygon.ON_BORDER, Polygon.ON_BORDER, Polygon.OUTSIDE};
-		String assertString = makeAssertString(polygon, points, results); 
-		
-		assertEquals(assertString, getResults(polygon, points));
+		runTest(getPolygon("doublejoint"), getPoints("doublejoint"), getResults("doublejoint"));
 	}
 	
 	@Test
 	void testWhereIsMShape() {
-		Polygon polygon = getPolygon("(0,0) (0,4) (2,2) (4,4) (4,0)");
-		Point[] points = getPoints("(3,3) (2,1) (-1,4)");
-		String[] results = new String[] {Polygon.ON_BORDER, Polygon.INSIDE, Polygon.OUTSIDE};
-		String assertString = makeAssertString(polygon, points, results); 
-		
-		assertEquals(assertString, getResults(polygon, points));
+		runTest(getPolygon("mshape"), getPoints("mshape"), getResults("mshape"));
 	}
 }

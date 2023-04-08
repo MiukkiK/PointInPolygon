@@ -1,6 +1,3 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-
 /**
  * Test class for fringe cases of the Polygon.whereIs() method.
  * This variation tests using File reads and writes.
@@ -9,31 +6,53 @@ import org.junit.jupiter.api.Test;
  */
 public class TestPolygonWithFiles extends AbstractPolygonTest {
 
-	@Test
-	void testWhereIsTriangle() {
-		Polygon polygon = getPolygon("src\\test\\resources\\triangle.txt");
-		Point[] points = getPoints("src\\test\\resources\\triangle_testpoints.txt");
-		String assertString = FileHandler.fileAsString("src\\test\\resources\\triangle_assertresults.txt"); 
-		
-		assertEquals(assertString, getResults(polygon, points));
+	Polygon getPolygon(String source) {
+		String fileSource = "not initialized";
+		switch (source) {
+		case "triangle": 
+			fileSource = "src\\test\\resources\\triangle.txt";
+			break;
+		case "doublejoint": 
+			fileSource = "src\\test\\resources\\doublejointedtriangle.txt";
+			break;
+		case "mshape": 
+			fileSource = "src\\test\\resources\\mshape.txt";
+			break;
+		}
+		return new Polygon(Point.getPointsFromString(FileHandler.fileAsString(fileSource)));
 	}
 	
-	@Test
-	void testWhereIsDoubleJointedTriangle() {
-		Polygon polygon = getPolygon("src\\test\\resources\\doublejointedtriangle.txt");
-		Point[] points = getPoints("src\\test\\resources\\doublejointedtriangle_testpoints.txt");
-		String assertString = FileHandler.fileAsString("src\\test\\resources\\doublejointedtriangle_assertresults.txt"); 
-		
-		assertEquals(assertString, getResults(polygon, points));
+	Point[] getPoints(String source) {
+		String fileSource = "not initialized";
+		switch (source) {
+		case "triangle": 
+			fileSource = "src\\test\\resources\\triangle_testpoints.txt";
+			break;
+		case "doublejoint": 
+			fileSource = "src\\test\\resources\\doublejointedtriangle_testpoints.txt";
+			break;
+		case "mshape": 
+			fileSource = "src\\test\\resources\\mshape_testpoints.txt";
+			break;
+		}
+		return Point.getPointsFromString(FileHandler.fileAsString(fileSource));
 	}
-	
-	
-	@Test
-	void testWhereIsMShape() {
-		Polygon polygon = getPolygon("src\\test\\resources\\mshape.txt");
-		Point[] points = getPoints("src\\test\\resources\\mshape_testpoints.txt");
-		String assertString = FileHandler.fileAsString("src\\test\\resources\\mshape_assertresults.txt"); 
-		
-		assertEquals(assertString, getResults(polygon, points));
+
+	String[] getResults(String source) {
+		String fileSource = "not initialized";
+		switch (source) {
+		case "triangle": 
+			fileSource = "src\\test\\resources\\triangle_assertresults.txt";
+			break;
+		case "doublejoint": 
+			fileSource = "src\\test\\resources\\doublejointedtriangle_assertresults.txt";
+			break;
+		case "mshape": 
+			fileSource = "src\\test\\resources\\mshape_assertresults.txt";
+			break;
+		}
+		String[] results = FileHandler.fileAsString(fileSource).split(",");
+		return results;
 	}
+
 }
