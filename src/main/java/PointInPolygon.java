@@ -11,7 +11,7 @@
  */
 public class PointInPolygon {
 
-	public static void main(String[] args) {
+	public static void main(String...args) {
 		Polygon polygon = new Polygon(Point.getPointsFromString(FileHandler.fileAsString(args[0])));
 		Point[] points = Point.getPointsFromString(FileHandler.fileAsString(args[1]));
 
@@ -19,6 +19,6 @@ public class PointInPolygon {
 		if (args.length > 2) target = args[2];
 
 		String results = polygon.generateResults(points);
-		FileHandler.writeResults(results, target);
+		FileHandler.writeToFile(target, results);
 	}
 }

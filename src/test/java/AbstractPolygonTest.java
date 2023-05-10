@@ -9,56 +9,19 @@ import org.junit.jupiter.api.Test;
  */
 public abstract class AbstractPolygonTest {
 	
-	Polygon getPolygon(String source) {
-		String pointString = "not initialized";
-		switch (source) {
-		case "triangle": 
-			pointString = "(0,0) (0,4) (4,0)";
-			break;
-		case "doublejoint": 
-			pointString = "(0,0) (2,0) (4,0) (0,4) (0,2)";
-			break;
-		case "mshape": 
-			pointString = "(0,0) (0,4) (2,2) (4,4) (4,0)";
-			break;
-		}
-		return new Polygon(Point.getPointsFromString(pointString));
+	Polygon getPolygon(Point...points) {
+		return new Polygon(points);
 	}
 	
-	Point[] getPoints(String source) {
-		String pointString = "not initialized";
-		switch (source) {
-		case "triangle": 
-			pointString = "(4,0) (1,1) (2,-2)";
-			break;
-		case "doublejoint": 
-			pointString = "(3,0) (0,1) (-2,0)";
-			break;
-		case "mshape": 
-			pointString = "(3,3) (2,1) (-1,4)";
-			break;
-		}
-		return Point.getPointsFromString(pointString);
+	Point[] getPoints(Point...points) {
+		return points;
 	}
 
-	String[] getResults(String source) {
-		String pointString = "not initialized";
-		switch (source) {
-			case "triangle": 
-				pointString = Polygon.ON_BORDER + "," + Polygon.INSIDE + "," + Polygon.OUTSIDE;
-				break;
-			case "doublejoint": 
-				pointString = Polygon.ON_BORDER + "," + Polygon.ON_BORDER + "," + Polygon.OUTSIDE;
-				break;
-			case "mshape": 
-				pointString = Polygon.ON_BORDER + "," + Polygon.INSIDE + "," + Polygon.OUTSIDE;
-				break;
-		}
-		String[] results = pointString.split(",");
+	Polygon.Position[] getResults(Polygon.Position...results) {
 		return results;
 	}
 	
-	void runTest(Polygon polygon, Point[] points, String[] asserts) {
+	void runTest(Polygon polygon, Point[] points, Polygon.Position[] asserts) {
 		for (int i=0; i<asserts.length; i++) {
 			System.out.println("Testing with polygon " + polygon.toString() + ", assertion " + asserts[i]);
 			assertEquals(asserts[i], polygon.whereIs(points[i]), "Problem with assertion index " + i);
@@ -67,16 +30,22 @@ public abstract class AbstractPolygonTest {
 	
 	@Test
 	void testWhereIsTriangle() {
-		runTest(getPolygon("triangle"), getPoints("triangle"), getResults("triangle"));
+		runTest(getPolygon(new Point(0,0), new Point(0,4), new Point(4,0)),
+				getPoints(new Point(4,0), new Point(1,1), new Point(2,-2)),
+				getResults(Polygon.Position.ON_BORDER, Polygon.Position.INSIDE, Polygon.Position.OUTSIDE));
 	}
 	
 	@Test
 	void testWhereIsDoubleJointedTriangle() {
-		runTest(getPolygon("doublejoint"), getPoints("doublejoint"), getResults("doublejoint"));
+		runTest(getPolygon(new Point(0,0), new Point(2,0), new Point(4,0), new Point(0,4), new Point(0,2)), 
+				getPoints(new Point(3,0), new Point(0,1), new Point(-2,0)), 
+				getResults(Polygon.Position.ON_BORDER, Polygon.Position.ON_BORDER, Polygon.Position.OUTSIDE));
 	}
 	
 	@Test
 	void testWhereIsMShape() {
-		runTest(getPolygon("mshape"), getPoints("mshape"), getResults("mshape"));
+		runTest(getPolygon(new Point(0,0), new Point(0,4), new Point(2,2), new Point(4,4), new Point(4,0)), 
+				getPoints(new Point(3,3), new Point(2,1), new Point(-1,4)), 
+				getResults(Polygon.Position.ON_BORDER, Polygon.Position.INSIDE, Polygon.Position.OUTSIDE));
 	}
 }

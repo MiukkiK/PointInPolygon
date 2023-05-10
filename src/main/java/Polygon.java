@@ -5,11 +5,30 @@ import java.util.LinkedList;
  * @author Mia Kallio
  */
 public class Polygon {
-	// Strings of results, modify here if you wish to change language for example.
-	static String INSIDE = "inside";
-	static String OUTSIDE = "outside";
-	static String ON_BORDER = "on the border";
-		
+	/**
+	 * Enumerator for the position of the Point in relation to the Polygon.
+	 */
+	public enum Position {
+		INSIDE,
+		OUTSIDE,
+		ON_BORDER;
+	/**
+	 * @return string representation of the enumerator.
+	 */
+		public String toString() {
+			switch(this) {
+			// Strings of results, modify here if you wish to change language for example.
+			case OUTSIDE:
+				return "Outside";
+			case INSIDE:
+				return "Inside";
+			case ON_BORDER:
+				return "On the border";
+			default: 
+				return "error";
+			}
+		}
+	}
 	/**
 	 * An array of Points in the Polygon.
 	 */
@@ -51,7 +70,7 @@ public class Polygon {
 	 * @param p the given Point.
 	 * @return the result in String format.
 	 */
-	public String whereIs(Point p) {
+	public Position whereIs(Point p) {
 		Point a, b, c; // line end points
 		float k, solveX; // solution variables for hard solving the intersect point		
 		int i = 0;
@@ -78,7 +97,7 @@ public class Polygon {
 					i++;
 					b = pointList.get((i+1)%size); // ignore end points on the point solution line
 					 if((b.getY() == c.getY()) && (b.getX() < p.getX())) {
-						return ON_BORDER; //straight horizontal line
+						return Position.ON_BORDER; //straight horizontal line
 					 }			
 				}
 				//if line is not entirely above or below solution line, it intersects
@@ -94,10 +113,10 @@ public class Polygon {
 				if (!((a.getY() < p.getY()) && (b.getY() < p.getY()) || 
 				   	  (b.getY() > p.getY()) && (a.getY() > p.getY()))) {
 					if (a.getX() == b.getX()) {
-						return ON_BORDER; //straight vertical line
+						return Position.ON_BORDER; //straight vertical line
 					}
 					if(a.getY() == b.getY()) {
-						return ON_BORDER; //straight horizontal line
+						return Position.ON_BORDER; //straight horizontal line
 					}
 					//if all else fails, hard solve if intersect point is left of solution line
 					k = (a.getY()-b.getY()) / (a.getX() - b.getX());
@@ -108,7 +127,7 @@ public class Polygon {
 					 */
 					solveX = ((p.getY()-a.getY())/k) + a.getX();
 					if (solveX == p.getX()) {
-						return ON_BORDER;
+						return Position.ON_BORDER;
 					} 
 					else if (solveX > p.getX()) {
 						intersects++;
@@ -119,10 +138,10 @@ public class Polygon {
 		}
 
 		if (intersects % 2 == 0) {
-			return OUTSIDE;
+			return Position.OUTSIDE;
 		}
 		else {
-			return INSIDE;
+			return Position.INSIDE;
 		}
 	}
 	/**
@@ -132,8 +151,8 @@ public class Polygon {
 	 */
 	public String generateResults(Point[] points) {
 		String resultString = "Results for polygon:\n" + this.toString() + "\n\n";
-		for (Point point : points) {
-			resultString = resultString + point.toString() + ": " + this.whereIs(point) + "\n";
+		for (Point point : points) {		
+			resultString = resultString + point.toString() + ": " + this.whereIs(point).toString() + "\n";
 		}
 		return resultString;
 	}

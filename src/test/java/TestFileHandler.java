@@ -17,11 +17,11 @@ class TestFileHandler {
 	}
 
 	@Test
-	void testWriteResults() {
-		String testFileTarget = "src\\test\\resources\\writetest.txt";
+	void testWriteToFile() {
+		String testFileTarget = "src\\test\\temp\\test.txt";
 		String testString = "This is a test string 1 2 3";
 
-		FileHandler.writeResults(testString, testFileTarget);
+		FileHandler.writeToFile(testFileTarget, testString);
 		
 		assertEquals(testString, FileHandler.fileAsString(testFileTarget));
 	}

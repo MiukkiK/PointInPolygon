@@ -5,54 +5,49 @@
  * @author Mia Kallio
  */
 public class TestPolygonWithFiles extends AbstractPolygonTest {
-
-	Polygon getPolygon(String source) {
-		String fileSource = "not initialized";
-		switch (source) {
-		case "triangle": 
-			fileSource = "src\\test\\resources\\triangle.txt";
-			break;
-		case "doublejoint": 
-			fileSource = "src\\test\\resources\\doublejointedtriangle.txt";
-			break;
-		case "mshape": 
-			fileSource = "src\\test\\resources\\mshape.txt";
-			break;
+	final String TESTFILE = "src\\test\\temp\\test.txt";
+	Polygon getPolygon(Point...points) {
+		String writeString = "";
+		for (Point point : points) {
+			writeString = writeString + point.toString();
 		}
-		return new Polygon(Point.getPointsFromString(FileHandler.fileAsString(fileSource)));
+		FileHandler.writeToFile(TESTFILE, writeString);
+		return super.getPolygon(Point.getPointsFromString(FileHandler.fileAsString(TESTFILE)));
 	}
 	
-	Point[] getPoints(String source) {
-		String fileSource = "not initialized";
-		switch (source) {
-		case "triangle": 
-			fileSource = "src\\test\\resources\\triangle_testpoints.txt";
-			break;
-		case "doublejoint": 
-			fileSource = "src\\test\\resources\\doublejointedtriangle_testpoints.txt";
-			break;
-		case "mshape": 
-			fileSource = "src\\test\\resources\\mshape_testpoints.txt";
-			break;
+	Point[] getPoints(Point...points) {
+		String writeString = "";
+		for (Point point : points) {
+			writeString = writeString + point.toString();
 		}
-		return Point.getPointsFromString(FileHandler.fileAsString(fileSource));
+		FileHandler.writeToFile(TESTFILE, writeString);	
+		return super.getPoints(Point.getPointsFromString(FileHandler.fileAsString(TESTFILE)));
 	}
-
-	String[] getResults(String source) {
-		String fileSource = "not initialized";
-		switch (source) {
-		case "triangle": 
-			fileSource = "src\\test\\resources\\triangle_assertresults.txt";
-			break;
-		case "doublejoint": 
-			fileSource = "src\\test\\resources\\doublejointedtriangle_assertresults.txt";
-			break;
-		case "mshape": 
-			fileSource = "src\\test\\resources\\mshape_assertresults.txt";
-			break;
+	
+	Polygon.Position[] getResults(Polygon.Position...results) {
+		
+		String writeString = "";
+		for (Polygon.Position result : results) {
+			writeString = writeString + result.toString() + "\n";
 		}
-		String[] results = FileHandler.fileAsString(fileSource).split(",");
-		return results;
+		FileHandler.writeToFile(TESTFILE, writeString);
+		
+		String[] fileStrings = FileHandler.fileAsString(TESTFILE).split("\\n");
+		Polygon.Position[] fileResults = new Polygon.Position[fileStrings.length];
+		for (int i=0; i<fileStrings.length; i++) {
+			switch(fileStrings[i]) {
+				case "Inside":
+					fileResults[i] = Polygon.Position.INSIDE;
+					break;
+				case "Outside":
+					fileResults[i] = Polygon.Position.OUTSIDE;
+					break;
+				case "On the border":
+					fileResults[i] = Polygon.Position.ON_BORDER;
+					break;
+			}
+		}
+ 		return super.getResults(fileResults);
 	}
 
 }
