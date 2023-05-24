@@ -28,6 +28,31 @@ public class FileHandler {
 			}
 		else return source;
 	}
+	
+	/**
+	 * Reads a File for a list of results in Polygon.Position enum format.
+	 * @param source Location of the File in String format.
+	 * @return an Array of Polygon.Position.
+	 */
+	public static Polygon.Position[] readResultsFromFile(String source) {
+		String[] fileStrings = fileAsString(source).split(",");
+		Polygon.Position[] fileResults = new Polygon.Position[fileStrings.length];
+		for (int i=0; i<fileStrings.length; i++) {
+			switch(fileStrings[i]) {
+				case "inside":
+					fileResults[i] = Polygon.Position.INSIDE;
+					break;
+				case "outside":
+					fileResults[i] = Polygon.Position.OUTSIDE;
+					break;
+				case "on the border":
+					fileResults[i] = Polygon.Position.ON_BORDER;
+					break;
+					
+			}
+		}
+ 		return fileResults;
+	}
 	/**
 	 * Static method for writing results of a test into a File, or if no valid File given, print to console.
 	 * File format "src\\folder\\targetfile.txt"

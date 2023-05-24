@@ -19,11 +19,11 @@ public class Polygon {
 			switch(this) {
 			// Strings of results, modify here if you wish to change language for example.
 			case OUTSIDE:
-				return "Outside";
+				return "outside";
 			case INSIDE:
-				return "Inside";
+				return "inside";
 			case ON_BORDER:
-				return "On the border";
+				return "on the border";
 			default: 
 				return "error";
 			}

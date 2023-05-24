@@ -9,13 +9,24 @@ import org.junit.jupiter.api.Test;
 class TestFileHandler {
 
 	@Test
-	void testfileAsString() {
+	void testFileAsString() {
 		
 		String assertString = "This is the test file contents (1 2 3)";
 
 		assertEquals(assertString, FileHandler.fileAsString("src\\test\\resources\\fileasstringtest.txt"));
 	}
 
+	@Test
+	void testReadResultsFromFile() {
+		var assertPositions = new Polygon.Position[] {Polygon.Position.INSIDE, Polygon.Position.OUTSIDE, Polygon.Position.ON_BORDER};
+		var filePositions = FileHandler.readResultsFromFile("src\\test\\resources\\readresultsfromfiletest.txt");
+
+		for (int i=0; i < assertPositions.length; i++) {
+			assertEquals(assertPositions[i], filePositions[i], "Assert mismatch at array index " + i);
+		}
+		
+	}
+	
 	@Test
 	void testWriteToFile() {
 		String testFileTarget = "src\\test\\temp\\test.txt";
