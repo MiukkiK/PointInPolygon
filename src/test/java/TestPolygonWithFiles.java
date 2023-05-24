@@ -28,7 +28,8 @@ public class TestPolygonWithFiles extends AbstractPolygonTest {
 		
 		String writeString = "";
 		for (Polygon.Position result : results) {
-			writeString = writeString + result.toString() + "\n";
+			if (writeString != "") writeString = writeString + ",";
+			writeString = writeString + result.toString();
 		}
 		FileHandler.writeToFile(TESTFILE, writeString);
  		return super.getResults(FileHandler.readResultsFromFile(TESTFILE));
