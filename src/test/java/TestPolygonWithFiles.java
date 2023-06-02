@@ -24,15 +24,16 @@ public class TestPolygonWithFiles extends AbstractPolygonTest {
 		return super.getPoints(Point.getPointsFromString(FileHandler.fileAsString(TESTFILE)));
 	}
 	
-	Polygon.Position[] getResults(Polygon.Position...results) {
+	Polygon.Position[] getResults(Polygon polygon, Point[] points) {
 		
+		var results = super.getResults(polygon, points);
 		String writeString = "";
 		for (Polygon.Position result : results) {
 			if (writeString != "") writeString = writeString + ",";
 			writeString = writeString + result.toString();
 		}
 		FileHandler.writeToFile(TESTFILE, writeString);
- 		return super.getResults(FileHandler.readResultsFromFile(TESTFILE));
+ 		return FileHandler.readResultsFromFile(TESTFILE);
 	}
 
 }
