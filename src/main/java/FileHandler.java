@@ -53,6 +53,15 @@ public class FileHandler {
 		}
  		return fileResults;
 	}
+	
+	public static void writeArrayToFile(String target, Object[] array, String splitter) {
+		String compiledString = "";
+		for (Object arrayPart : array) {
+			if (compiledString != "") compiledString = compiledString + splitter;
+			compiledString = compiledString + arrayPart.toString();
+		}
+		writeToFile(target, compiledString);
+	}
 	/**
 	 * Static method for writing results of a test into a File, or if no valid File given, print to console.
 	 * File format "src\\folder\\targetfile.txt"
