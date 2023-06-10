@@ -18,7 +18,7 @@ public class TestPolygonWithFiles extends AbstractPolygonTest {
 	
 	Polygon.Position[] getResults(Polygon polygon, Point[] points) {
 		
-		var results = super.getResults(polygon, points);
+		Polygon.Position[] results = super.getResults(polygon, points);
 		FileHandler.writeArrayToFile(TESTFILE, results, ",");
  		return FileHandler.readResultsFromFile(TESTFILE);
 	}

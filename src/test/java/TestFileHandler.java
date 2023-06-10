@@ -18,8 +18,8 @@ class TestFileHandler {
 
 	@Test
 	void testReadResultsFromFile() {
-		var assertPositions = new Polygon.Position[] {Polygon.Position.INSIDE, Polygon.Position.OUTSIDE, Polygon.Position.ON_BORDER};
-		var filePositions = FileHandler.readResultsFromFile("src\\test\\resources\\readresultsfromfiletest.txt");
+		Polygon.Position[] assertPositions = new Polygon.Position[] {Polygon.Position.INSIDE, Polygon.Position.OUTSIDE, Polygon.Position.ON_BORDER};
+		Polygon.Position[] filePositions = FileHandler.readResultsFromFile("src\\test\\resources\\readresultsfromfiletest.txt");
 
 		for (int i=0; i < assertPositions.length; i++) {
 			assertEquals(assertPositions[i], filePositions[i], "Assert mismatch at array index " + i);

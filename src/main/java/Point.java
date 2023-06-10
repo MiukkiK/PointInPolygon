@@ -20,7 +20,7 @@ public class Point {
 	 * @return an array of Points.
 	 */
 	public static Point[] getPointsFromString(String string) {
-		var pointList = new LinkedList<Point>();
+		LinkedList<Point> pointList = new LinkedList<Point>();
 				
 		try (Scanner scanner = new Scanner(string).useDelimiter("([()]|\\s)+")) {
 			while (scanner.hasNext()) {
