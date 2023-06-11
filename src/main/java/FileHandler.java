@@ -10,7 +10,7 @@ import java.nio.file.Paths;
  */
 public class FileHandler {
 	/**
-	 * Static method for reading the contents of a File into a String.
+	 * Read the contents of a File into a String.
 	 * File format "src\\folder\\inputfile.txt"
 	 * 
 	 * @param source Location of the File in String format.
@@ -28,7 +28,6 @@ public class FileHandler {
 			}
 		else return source;
 	}
-	
 	/**
 	 * Reads a File for a list of results in Polygon.Position enum format.
 	 * @param source Location of the File in String format.
@@ -54,25 +53,11 @@ public class FileHandler {
  		return fileResults;
 	}
 	/**
-	 * Writes the String representations of the Objects in given Array to target location.
-	 * @param target Target File location in String format.
-	 * @param array given Array of Objects.
-	 * @param splitter String used to split Objects in the written File.
-	 */
-	public static void writeArrayToFile(String target, Object[] array, String splitter) {
-		String compiledString = "";
-		for (Object arrayPart : array) {
-			if (compiledString != "") compiledString = compiledString + splitter;
-			compiledString = compiledString + arrayPart.toString();
-		}
-		writeToFile(target, compiledString);
-	}
-	/**
-	 * Static method for writing results of a test into a File, or if no valid File given, print to console.
+	 * Writes a String to a File, or if no valid File given, print to console.
 	 * File format "src\\folder\\targetfile.txt"
 	 * File must exist beforehand. Contents of the file will be overwritten.
 	 * 
-	 * @param resultString String to be written.
+	 * @param string String to be written.
 	 * @param target Target File location.
 	 */
 	public static void writeToFile(String target, String string) {
@@ -88,18 +73,31 @@ public class FileHandler {
 			System.out.print(string);
 		}		
 	}
-	
 	/**
-	 * Static method for making a result String in printable format.
+	 * Writes the String representations of the Objects in given Array to target location.
+	 * @param target Target File location in String format.
+	 * @param array given Array of Objects.
+	 * @param splitter String used to split Objects in the written File.
+	 */
+	public static void writeArrayToFile(String target, Object[] array, String splitter) {
+		String compiledString = "";
+		for (Object arrayPart : array) {
+			if (compiledString != "") compiledString = compiledString + splitter;
+			compiledString = compiledString + arrayPart.toString();
+		}
+		writeToFile(target, compiledString);
+	}
+	/**
+	 * Form a result String in printable format from Polygon, test Point array and Polygon.Position enum array.
 	 * @param polygon tested Polygon.
 	 * @param points Array of Points tested.
-	 * @param results Array of Polygon.Location enum results.
+	 * @param results Array of Polygon.Position enum results.
 	 * @return Results in a String for printing to file or console.
 	 */
 	public static String formulateResults (Polygon polygon, Point[] points, Polygon.Position[] results) {
-		String resultString = "Results for polygon:\n" + polygon.toString() + "\n\n";
+		String resultString = "Results for polygon:" + System.lineSeparator() + polygon.toString() + System.lineSeparator() + System.lineSeparator();
 		for (int i=0; i < points.length; i++) {		
-			resultString = resultString + points[i].toString() + ": " + results[i] + "\n";
+			resultString = resultString + points[i].toString() + ": " + results[i] + System.lineSeparator();
 		}
 		return resultString;
 	}

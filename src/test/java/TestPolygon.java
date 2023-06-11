@@ -22,4 +22,16 @@ class TestPolygon {
 
 		assertEquals(assertString, testPoly.toString());
 	}
+	
+	@Test
+	void testGenerateResults() {
+		Polygon polygon = new Polygon(new Point[] {new Point("0,0"), new Point("0,4"), new Point("4,0")});
+		Point[] testPoints = new Point[] {new Point("0,5"), new Point("1,1"), new Point("0,2")};
+		Polygon.Position[] assertResults = new Polygon.Position[] {Polygon.Position.OUTSIDE, Polygon.Position.INSIDE, Polygon.Position.ON_BORDER};
+		Polygon.Position[] results = polygon.generateResults(testPoints);
+		for (int i=0; i < results.length; i++) {
+			assertEquals(assertResults[i], results[i], "Result mismatch at position " + i);
+		}
+
+	}
 }

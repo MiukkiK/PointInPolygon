@@ -32,12 +32,12 @@ public class Polygon {
 	/**
 	 * An array of Points in the Polygon.
 	 */
-	Point[] points;
+	private Point[] points;
 	
 	/**
 	 * a LinkedList of Points of the Polygon for the search function.
 	 */
-	LinkedList<Point> pointList;
+	private LinkedList<Point> pointList;
 	
 	/**
 	 * Creates a Polygon from an array of Points.
@@ -149,7 +149,7 @@ public class Polygon {
 	 * @param points Array of Points to test
 	 * @return Array of results in Position enum format.
 	 */
-	Position[] generateResults(Point[] points) {
+	public Position[] generateResults(Point[] points) {
 		Polygon.Position[] results = new Polygon.Position[points.length];
 		for (int i=0; i < points.length; i++) {
 			results[i] = whereIs(points[i]);
