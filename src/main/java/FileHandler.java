@@ -53,7 +53,12 @@ public class FileHandler {
 		}
  		return fileResults;
 	}
-	
+	/**
+	 * Writes the String representations of the Objects in given Array to target location.
+	 * @param target Target File location in String format.
+	 * @param array given Array of Objects.
+	 * @param splitter String used to split Objects in the written File.
+	 */
 	public static void writeArrayToFile(String target, Object[] array, String splitter) {
 		String compiledString = "";
 		for (Object arrayPart : array) {
@@ -82,5 +87,20 @@ public class FileHandler {
 		else {
 			System.out.print(string);
 		}		
+	}
+	
+	/**
+	 * Static method for making a result String in printable format.
+	 * @param polygon tested Polygon.
+	 * @param points Array of Points tested.
+	 * @param results Array of Polygon.Location enum results.
+	 * @return Results in a String for printing to file or console.
+	 */
+	public static String formulateResults (Polygon polygon, Point[] points, Polygon.Position[] results) {
+		String resultString = "Results for polygon:\n" + polygon.toString() + "\n\n";
+		for (int i=0; i < points.length; i++) {		
+			resultString = resultString + points[i].toString() + ": " + results[i] + "\n";
+		}
+		return resultString;
 	}
 }

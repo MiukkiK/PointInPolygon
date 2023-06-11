@@ -147,14 +147,14 @@ public class Polygon {
 	/**
 	 * Generates whereIs() test results in a String for the given array of Points.
 	 * @param points Array of Points to test
-	 * @return Results in String format
+	 * @return Array of results in Position enum format.
 	 */
-	public String generateResults(Point[] points) {
-		String resultString = "Results for polygon:\n" + this.toString() + "\n\n";
-		for (Point point : points) {		
-			resultString = resultString + point.toString() + ": " + this.whereIs(point).toString() + "\n";
+	Position[] generateResults(Point[] points) {
+		Polygon.Position[] results = new Polygon.Position[points.length];
+		for (int i=0; i < points.length; i++) {
+			results[i] = whereIs(points[i]);
 		}
-		return resultString;
+		return results;
 	}
 	
 }

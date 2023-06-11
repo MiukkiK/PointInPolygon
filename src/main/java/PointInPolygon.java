@@ -18,7 +18,7 @@ public class PointInPolygon {
 		String target = "none";
 		if (args.length > 2) target = args[2];
 
-		String results = polygon.generateResults(points);
-		FileHandler.writeToFile(target, results);
+		Polygon.Position[] results = polygon.generateResults(points);
+		FileHandler.writeToFile(target, FileHandler.formulateResults(polygon, points, results));
 	}
 }

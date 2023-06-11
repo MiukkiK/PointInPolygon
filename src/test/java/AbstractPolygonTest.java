@@ -18,11 +18,7 @@ public abstract class AbstractPolygonTest {
 	}
 
 	Polygon.Position[] getResults(Polygon polygon, Point[] points) {
-		Polygon.Position[] results = new Polygon.Position[points.length];
-		for (int i=0; i < points.length; i++) {
-			results[i] = polygon.whereIs(points[i]);
-		}
-		return results;
+		return polygon.generateResults(points);
 	}
 	
 	void runTest(Polygon polygon, Point[] points, Polygon.Position[] asserts) {
