@@ -14,19 +14,17 @@ public class FileHandler {
 	 * File format "src\\folder\\inputfile.txt"
 	 * 
 	 * @param source Location of the File in String format.
-	 * @return File contents as a String if a valid file, otherwise the input string.
+	 * @return File contents as a String.
 	 * 
 	 */	
 	public static String fileAsString (String source) {
 		Path filePath = Paths.get(source);
-		if (Files.exists(filePath))
-			try {
-				return Files.readString(filePath);
-			} catch (IOException e) {
-				System.out.println("Error while parsing file: " + source);
-				return "";
-			}
-		else return source;
+		try {
+			return Files.readString(filePath);
+		} catch (IOException e) {
+			System.out.println("Error reading file: " + source);
+			return "error";
+		}
 	}
 	/**
 	 * Reads a File for a list of results in Polygon.Position enum format.
@@ -53,7 +51,7 @@ public class FileHandler {
  		return fileResults;
 	}
 	/**
-	 * Writes a String to a File, or if no valid File given, print to console.
+	 * Writes a String to a File.
 	 * File format "src\\folder\\targetfile.txt"
 	 * File must exist beforehand. Contents of the file will be overwritten.
 	 * 
@@ -61,16 +59,12 @@ public class FileHandler {
 	 * @param target Target File location.
 	 */
 	public static void writeToFile(String target, String string) {
-		if ((target != "") && Files.exists(Paths.get(target)))
-			try {
-				FileWriter fileWriter = new FileWriter(target);
-				fileWriter.write(string);
-				fileWriter.close();
-			} catch (IOException e) {
-				System.out.println("Error while writing to file: " + target);				
-			}
-		else {
-			System.out.print(string);
+		try {
+			FileWriter fileWriter = new FileWriter(target);
+			fileWriter.write(string);
+			fileWriter.close();
+		} catch (IOException e) {
+			System.out.println("Error writing to file: " + target);				
 		}		
 	}
 	/**
@@ -86,19 +80,5 @@ public class FileHandler {
 			compiledString = compiledString + arrayPart.toString();
 		}
 		writeToFile(target, compiledString);
-	}
-	/**
-	 * Form a result String in printable format from Polygon, test Point array and Polygon.Position enum array.
-	 * @param polygon tested Polygon.
-	 * @param points Array of Points tested.
-	 * @param results Array of Polygon.Position enum results.
-	 * @return Results in a String for printing to file or console.
-	 */
-	public static String formulateResults (Polygon polygon, Point[] points, Polygon.Position[] results) {
-		String resultString = "Results for polygon:" + System.lineSeparator() + polygon.toString() + System.lineSeparator() + System.lineSeparator();
-		for (int i=0; i < points.length; i++) {		
-			resultString = resultString + points[i].toString() + ": " + results[i] + System.lineSeparator();
-		}
-		return resultString;
 	}
 }

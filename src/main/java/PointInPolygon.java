@@ -12,13 +12,22 @@
 public class PointInPolygon {
 
 	public static void main(String...args) {
-		Polygon polygon = new Polygon(Point.getPointsFromString(FileHandler.fileAsString(args[0])));
-		Point[] points = Point.getPointsFromString(FileHandler.fileAsString(args[1]));
-
-		String target = "none";
-		if (args.length > 2) target = args[2];
-
-		Polygon.Position[] results = polygon.generateResults(points);
-		FileHandler.writeToFile(target, FileHandler.formulateResults(polygon, points, results));
+		Polygon polygon;
+		Point[] points;
+		switch (args.length){
+		case 2:
+			polygon = new Polygon(Point.getPointsFromString(args[0]));
+			points = Point.getPointsFromString(args[1]);
+			System.out.println(polygon.generateResultString(points));
+			break;
+		case 3:
+			polygon = new Polygon(Point.getPointsFromString(FileHandler.fileAsString(args[0])));
+			points = Point.getPointsFromString(FileHandler.fileAsString(args[1]));
+			FileHandler.writeArrayToFile(args[2], polygon.generateResults(points), ",");
+			break;
+		default:
+			System.out.println("Improper amount of arguments, check syntax.");
+			break;
+		}
 	}
 }

@@ -145,7 +145,7 @@ public class Polygon {
 		}
 	}
 	/**
-	 * Generates whereIs() test results in a String for the given array of Points.
+	 * Generates an array of results from testing given Points in this Polygon.
 	 * @param points Array of Points to test
 	 * @return Array of results in Position enum format.
 	 */
@@ -156,5 +156,17 @@ public class Polygon {
 		}
 		return results;
 	}
-	
+	/**
+	 * Generates a printable String of results from testing given Points in this Polygon.
+	 * Contains the Polygon, test Points and results in String format.
+	 * @param points Array of Points to test
+	 * @return String of test results. 
+	 */
+	public String generateResultString (Point[] points) {
+		String resultString = "Results for polygon:" + System.lineSeparator() + this.toString() + System.lineSeparator();
+		for (Point point : points) {		
+			resultString = resultString + System.lineSeparator() + point.toString() + ": " + this.whereIs(point);
+		}
+		return resultString;
+	}
 }
