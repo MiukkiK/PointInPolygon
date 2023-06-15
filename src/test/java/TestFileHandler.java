@@ -62,6 +62,7 @@ class TestFileHandler {
 		Point[] points = Point.getPointsFromString("(2,2) (5,5) (4,4)");
 		Polygon.Position[] results = new Polygon.Position[] {Polygon.Position.INSIDE, Polygon.Position.OUTSIDE, Polygon.Position.ON_BORDER};
 
+		assertEquals(points.length, results.length, "Result array legth does not match Point array length.");		
 		assertEquals(FileHandler.fileAsString("src\\test\\resources\\formulateresultstest.txt"), FileHandler.formulateResults(polygon, points, results));
 	}
 }

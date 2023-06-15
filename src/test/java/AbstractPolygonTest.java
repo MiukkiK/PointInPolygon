@@ -22,10 +22,14 @@ public abstract class AbstractPolygonTest {
 	}
 	
 	void runTest(Polygon polygon, Point[] points, Polygon.Position[] asserts) {
-		if (points.length != asserts.length) throw new ArrayIndexOutOfBoundsException("Point and assert Array lengths do not match. Point array length: " + points.length + ", assert array length: " + asserts.length);
+		
+		assertEquals(asserts.length, points.length, "runTest() Point array length does not match assert array length.");
+		
 		Polygon.Position[] results = getResults(polygon, points);
+
+		assertEquals(asserts.length, results.length, "getResults() returned different length array in runTest().");
+
 		for (int i=0; i<asserts.length; i++) {
-			System.out.println("Testing with polygon " + polygon.toString() + ", assertion " + asserts[i]);
 			assertEquals(asserts[i], results[i], "Problem with assertion index " + i);
 		}
 	}
