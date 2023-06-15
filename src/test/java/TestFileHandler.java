@@ -55,14 +55,4 @@ class TestFileHandler {
 			assertEquals(assertResults[i], results[i], "Mismatch in array position " + i);
 		}
 	}
-	
-	@Test
-	void testFormulateResults() {
-		Polygon polygon = new Polygon(Point.getPointsFromString("(0,0) (0,4) (4,4) (4,0)"));
-		Point[] points = Point.getPointsFromString("(2,2) (5,5) (4,4)");
-		Polygon.Position[] results = new Polygon.Position[] {Polygon.Position.INSIDE, Polygon.Position.OUTSIDE, Polygon.Position.ON_BORDER};
-
-		assertEquals(points.length, results.length, "Result array legth does not match Point array length.");		
-		assertEquals(FileHandler.fileAsString("src\\test\\resources\\formulateresultstest.txt"), FileHandler.formulateResults(polygon, points, results));
-	}
 }

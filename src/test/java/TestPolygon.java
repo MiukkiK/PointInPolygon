@@ -35,6 +35,14 @@ class TestPolygon {
 		for (int i=0; i < results.length; i++) {
 			assertEquals(assertResults[i], results[i], "Result mismatch at position " + i);
 		}
+	}
+	
+	@Test
+		void testGenerateResultString() {
+			Polygon polygon = new Polygon(Point.getPointsFromString("(0,0) (0,4) (4,4) (4,0)"));
+			Point[] points = Point.getPointsFromString("(2,2) (5,5) (4,4)");
 
+			assertEquals(FileHandler.fileAsString("src\\test\\resources\\generateresultstringtest.txt"), polygon.generateResultString(points));
+		
 	}
 }

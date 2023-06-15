@@ -1,4 +1,6 @@
 import org.junit.jupiter.api.Test;
+import java.io.PrintStream;
+import java.io.ByteArrayOutputStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -11,8 +13,15 @@ class TestPointInPolygon {
 
 	@Test
 	void runWithoutFile() {
-		PointInPolygon.main("(0,0) (4,0) (0,4)","((2,2) (1,1) (2,-2)", "src\\test\\temp\\test.txt");
-		assertEquals(FileHandler.fileAsString("src\\test\\resources\\pointinpolygonwithoutfiletest.txt"),FileHandler.fileAsString("src\\test\\temp\\test.txt"));
+		ByteArrayOutputStream consoleOutput = new ByteArrayOutputStream();
+		PrintStream originalOut = System.out;
+
+		System.setOut(new PrintStream(consoleOutput));
+		
+		PointInPolygon.main("(0,0) (4,0) (0,4)","((2,2) (1,1) (2,-2)");
+		assertEquals(FileHandler.fileAsString("src\\test\\resources\\pointinpolygonwithoutfiletest.txt"), consoleOutput.toString());
+		
+		System.setOut(originalOut);
 	}
 
 	@Test
